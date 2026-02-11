@@ -4,6 +4,7 @@ import cors from "cors";
 import connectDB from "./config/db.js";
 import userRoutes from './routes/user.routes.js'
 import recipeRoutes from './routes/recipe.routes.js'
+import profileRoutes from './routes/profile.route.js'
 
 dotenv.config();
 connectDB();
@@ -14,6 +15,7 @@ app.use(cors());
 app.use(express.json());
 app.use('/api/user', userRoutes);
 app.use("/api/recipes", recipeRoutes);
+app.use("/api/profile", profileRoutes);
 
 app.listen(process.env.PORT || 3000, () =>
   console.log(`Server running on port ${process.env.PORT || 3000}`)
