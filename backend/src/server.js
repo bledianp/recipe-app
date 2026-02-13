@@ -13,7 +13,10 @@ connectDB();
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true
+}))
 app.use(express.json());
 app.use('/api/user', userRoutes);
 app.use("/api/recipes", recipeRoutes);
@@ -21,6 +24,6 @@ app.use("/api/profile", profileRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/favorites", favoriteRoutes);
 
-app.listen(process.env.PORT || 3000, () =>
-  console.log(`Server running on port ${process.env.PORT || 3000}`)
+app.listen(process.env.PORT || 5000, () =>
+  console.log(`Server running on port ${process.env.PORT || 5000}`)
 );
