@@ -40,7 +40,7 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
 
       <div className="p-4">
         <h2 className="text-xl font-bold">{recipe.title}</h2>
-        <p className="text-sm mt-1">❤️ {recipe.favorites?.length ?? 0}</p>
+        <p className="text-sm mt-1"><img src="https://en.wikipedia.org/wiki/Heart_symbol#/media/File:Heart_coraz%C3%B3n.svg" width="100" height="100"/> {recipe.favorites?.length ?? 0}</p>
 
         {expanded && (
           <div className="mt-2 space-y-2">

@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 
 const generateToken = (userId) => {
   const token = jwt.sign({ id: userId }, process.env.JWT_SECRET, {
@@ -14,9 +15,13 @@ const register = async (email, password) => {
       throw new Error("This user exists");
     }
 
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    console.log(hashedPassword);
+
     const newUser = new User({
       email: email,
-      password: password,
+      password: hashedPassword,
     });
     await newUser.save();
     return newUser;
@@ -26,17 +31,16 @@ const register = async (email, password) => {
 };
 const login = async (email, password) => {
   const user = await findUser(email);
-  if (user) {
-    if (user.password === password) {
-      const token = generateToken(user._id);
-      return {
-        user: user,
-        accessToken: token,
-      };
-    }
-  } else {
-    return null;
-  }
+  if (!user) return null;
+
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) return null;
+
+  const token = generateToken(user._id);
+  return {
+    user: user,
+    accessToken: token,
+  };
 };
 
 const findUser = async (email) => {
