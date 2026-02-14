@@ -19,6 +19,7 @@ export default function RegisterPage() {
 
     try {
       await registerUser(email, password);
+      toast.success("Registe successfully!");
       router.push("/login");
     } catch (error: any) {
       toast.error(error.response?.data?.message || "Error");

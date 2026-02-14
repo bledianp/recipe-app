@@ -23,9 +23,10 @@ export default function LoginPage() {
       const res = await loginUser(email, password);
       const token = res.data.accessToken;
       localStorage.setItem("accessToken", token);
+      toast.success("Logged in succesfully!!");
       router.push("/");
       window.location.reload();
-      toast.success("Logged in succesfully!!");
+      
     } catch (error: any) {
       toast.error(error.response?.data?.message || "Error");
     }
