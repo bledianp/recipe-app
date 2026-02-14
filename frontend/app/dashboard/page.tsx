@@ -1,6 +1,6 @@
 "use client"
 import { useEffect } from "react";
-import { checkAuth } from "@/lib/auth";
+import { checkAuth } from "@/src/lib/auth";
 
 export default function DashboardPage() {
   useEffect(() => {

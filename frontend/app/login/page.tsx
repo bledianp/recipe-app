@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { loginUser } from "@/services/authService";
-import { useAuthRedirect } from "@/hooks/useAuthRedirect";
+import { loginUser } from "@/src/services/authService";
+import { useAuthRedirect } from "@/src/hooks/useAuthRedirect";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
   const { loading } = useAuthRedirect();
@@ -22,9 +23,11 @@ export default function LoginPage() {
       const res = await loginUser(email, password);
       const token = res.data.accessToken;
       localStorage.setItem("accessToken", token);
-      router.push("/dashboard");
+      router.push("/");
+      window.location.reload();
+      toast.success("Logged in succesfully!!");
     } catch (error: any) {
-      alert(error.response?.data?.message || "Error");
+      toast.error(error.response?.data?.message || "Error");
     }
   };
 

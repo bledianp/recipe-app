@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { registerUser } from "@/services/authService";
-import { useAuthRedirect } from "@/hooks/useAuthRedirect";
+import { registerUser } from "@/src/services/authService";
+import { useAuthRedirect } from "@/src/hooks/useAuthRedirect";
+import toast from "react-hot-toast";
 
 export default function RegisterPage() {
   const { loading } = useAuthRedirect();
@@ -20,7 +21,7 @@ export default function RegisterPage() {
       await registerUser(email, password);
       router.push("/login");
     } catch (error: any) {
-      alert(error.response?.data?.message || "Error");
+      toast.error(error.response?.data?.message || "Error");
     }
   };
 

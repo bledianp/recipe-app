@@ -10,7 +10,7 @@ export const useAuthRedirect = (): { loading: boolean } => {
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     if (token) {
-      router.replace("/dashboard");
+      router.replace("/");
     } else {
       setLoading(false);
     }
